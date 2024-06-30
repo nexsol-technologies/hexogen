@@ -1,0 +1,35 @@
+version: "3"
+
+services:
+  nginx:
+    image: nginx:alpine3.18-slim
+
+  demo-db:
+    restart: always
+    image: postgres:15.4-alpine3.18
+    environment:
+      - POSTGRES_USER=demo
+      - POSTGRES_PASSWORD=demo
+      - POSTGRES_DB=demo
+
+  demo-api:
+    depends_on: 
+      - demo-db
+    restart: always
+    image: postgrest/postgrest:latest
+    environment:
+      - PGRST_DB_URI=postgres://demo:demo@demo-db:5432/demo
+      - PGRST_DB_SCHEMA=public
+      - PGRST_DB_ANON_ROLE=demo
+      - PGRST_DB_SCHEMAS=public
+
+  haproxy:
+    depends_on: 
+      - demo-api
+    restart: always
+    image: haproxy:2.9.9-alpine3.20
+    ports:
+      - 80:8080
+    volumes:
+      - ./output/haproxy.conf:/usr/local/etc/haproxy/haproxy.cfg:ro
+      - ./output/hosts.map:/etc/haproxy/maps/hosts.map:ro

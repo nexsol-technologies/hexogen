@@ -1,0 +1,20 @@
+secpgrestcached:
+  urls:
+  - "demo-api:3000"
+  group: "api secured with cache"
+  checkurl: "/"
+  cache: true
+  security: "high-api"
+
+secpgrest:
+  urls:
+  - "demo-api:3000"
+  group: "api secured"
+  checkurl: "/"
+  security: "high-api"
+
+pgrest:
+  urls:
+  - "demo-api:3000"
+  group: "unsecure"
+  checkurl: "/"
