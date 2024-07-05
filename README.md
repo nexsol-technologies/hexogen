@@ -43,7 +43,7 @@ The YAML configuration file is a set of applications that need to be load balanc
 | persist |false|boolean|persists: true| Implement sticky sessions with the client’s IP. |
 | security |-|string|security: owasp-api| Identify which OWASP level is needed for security headers. |
 | ssl |false|boolean|ssl: true| Set it to true if the backend is using HTTPS. |
-| urls | - | array of strings | "host1:80,host2:80" | A list of hosts to load balance. | 
+| urls | - | array of strings | host1:80 | A list of hosts to load balance. | 
 
 A sample YAML file can be found [here](./sample/test.yaml)
 
